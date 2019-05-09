@@ -7,12 +7,12 @@
   "scripts": {
     "start:server": "yarn workspace server start",
     "start:client": "yarn workspace client start",
-    "start": "npm-run-all -p start:server start:client",
+    "start": "npm-run-all -p start:client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [
-    "client/",
-    "server/"
+    "client",
+    "server"
   ],
   "repository": {
     "type": "git",
