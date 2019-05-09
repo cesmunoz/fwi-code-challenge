@@ -1,0 +1,34 @@
+{
+  "name": "fwi-code-challenge",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Four winds interactive code challenge",
+  "main": "index.js",
+  "scripts": {
+    "start:server": "yarn workspace server start",
+    "start:client": "yarn workspace client start",
+    "start": "npm-run-all -p start:server start:client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "client/",
+    "server/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cesmunoz/fwi-code-challenge.git"
+  },
+  "author": "Cesar Muñoz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cesmunoz/fwi-code-challenge/issues"
+  },
+  "homepage": "https://github.com/cesmunoz/fwi-code-challenge#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "fwi-client": "0.1.0",
+    "fwi-server": "1.0.0"
+  }
+}
