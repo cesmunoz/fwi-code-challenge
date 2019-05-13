@@ -1,7 +1,8 @@
 import * as express from "express";
-import * as controller from "../controllers/players"
+import { PlayerController } from "../controllers/playerController";
 
 const router = express.Router();
+const controller = new PlayerController();
 
 router.get("/", controller.get);
 router.get("/:id", controller.getById);

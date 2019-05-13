@@ -1,0 +1,26 @@
+[
+  {
+    "firstname": "John",
+    "lastname": "Smith",
+    "hometown": "Gallifrey",
+    "country": "Gallifrey"
+  },
+  {
+    "firstname": "Sherlock",
+    "lastname": "Holmes",
+    "hometown": "London",
+    "country": "England"
+  },
+  {
+    "firstname": "Homer",
+    "lastname": "Simpson",
+    "hometown": "Springfield",
+    "country": "United States"
+  },
+  {
+    "firstname": "Eric",
+    "lastname": "Cartman",
+    "hometown": "South Park",
+    "country": "United States"
+  }
+]
