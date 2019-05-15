@@ -4,8 +4,8 @@
   "description": "Four wind interactive - Server side",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node ./src/server/server.ts",
-    "start": "tsc && nodemon ./dist/server/server",
+    "dev": "ts-node ./src/App.ts",
+    "start": "tsc && nodemon ./dist/App",
     "build": "tsc",
     "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "test": "jest"
@@ -16,6 +16,7 @@
     "@types/express": "^4.16.1",
     "@types/jest": "^24.0.12",
     "@types/mongodb-memory-server": "^1.8.0",
+    "@types/mongoose": "^5.5.1",
     "@types/supertest": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^1.8.0",
     "@typescript-eslint/parser": "^1.8.0",
@@ -27,14 +28,18 @@
     "nodemon": "^1.19.0",
     "prettier": "^1.17.0",
     "ts-node": "^8.1.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "express": "^4.16.4"
   },
   "dependencies": {
     "@types/body-parser": "^1.17.0",
-    "@types/mongoose": "^5.5.0",
+    "@types/node": "^12.0.1",
     "body-parser": "^1.19.0",
-    "express": "^4.16.4",
-    "jest": "^24.8.0",
+    "inversify": "^5.0.1",
+    "inversify-binding-decorators": "^4.0.0",
+    "inversify-express-utils": "^6.3.2",
+    "jest": "24.7.1",
+    "reflect-metadata": "^0.1.13",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2"
   }
