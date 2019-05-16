@@ -89,7 +89,7 @@ ManagePlayerPage.propTypes = {
 };
 
 export function getPlayerById(players, id) {
-  return players.find(player => player.id === id) || null;
+  return players.find(player => player._id === id) || null;
 }
 
 function mapStateToProps(state, ownProps) {

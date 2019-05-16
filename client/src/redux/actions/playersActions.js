@@ -15,7 +15,7 @@ export function createPlayerSuccess(player) {
 }
 
 export function updatePlayerSuccess(player) {
-  return { type: types.UPDATE_PLAYER_SUCCESS };
+  return { type: types.UPDATE_PLAYER_SUCCESS, player };
 }
 
 export function deletePlayerSuccess(player) {
@@ -40,7 +40,6 @@ export function loadPlayers() {
 export function savePlayer(player) {
   return function(dispatch, getState) {
     dispatch(beginApiCall());
-
     if (!player._id) {
       return axios
         .post(`${apiUrl}`, player)
@@ -53,7 +52,7 @@ export function savePlayer(player) {
         });
     } else {
       return axios
-        .put(`${apiUrl}/${player.id}`, player)
+        .put(`${apiUrl}/${player._id}`, player)
         .then(savedPlayer => {
           dispatch(updatePlayerSuccess(savedPlayer.data));
         })
@@ -69,7 +68,7 @@ export function deletePlayer(player) {
   return function(dispatch) {
     dispatch(beginApiCall);
     return axios
-      .delete(`${apiUrl}/${player.id}`)
+      .delete(`${apiUrl}/${player._id}`)
       .then(success => {
         // Do something
       })

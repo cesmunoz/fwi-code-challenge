@@ -19,8 +19,8 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/players" component={PlayersPage} />
-        <Route path="/player" component={ManagePlayerPage} />
         <Route path="/player/:id" component={ManagePlayerPage} />
+        <Route path="/player" component={ManagePlayerPage} />
         <Route component={PageNotFound} />
       </Switch>
       <ToastContainer autoClose={3000} hideProgressBar />

@@ -9,10 +9,10 @@ export default function playersReducer(state = initialState.players, action) {
       return [...state, { ...action.player }];
     case types.UPDATE_PLAYER_SUCCESS:
       return state.map(player =>
-        player.id === action.player.id ? action.player : player
+        player._id === action.player._id ? action.player : player
       );
     case types.DELETE_PLAYER_SUCCESS:
-      return state.filter(player => player.id !== action.player.id);
+      return state.filter(player => player._id !== action.player._id);
     default:
       return state;
   }

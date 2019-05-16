@@ -7,6 +7,7 @@ import { InversifyExpressServer, interfaces } from "inversify-express-utils";
 import TYPES from "./constants/Types";
 import DataAccess = require("./util/DataAccess");
 import "./controllers/PlayerController";
+import cors from "cors";
 import PlayerRepository = require("./repository/PlayerRepository");
 import { RepositoryBase } from "./repository/base/RepositoryBase";
 import Player, { IPlayerModel } from "./models/Player";
@@ -24,14 +25,7 @@ server.setConfig(app => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
-  app.use(function(req: Request, res: Response, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-  });
+  app.use(cors());
 
   app.get("/", (req: Request, res: Response) =>
     res.send(200).send("Welcome to FWI Code Challenge API")
