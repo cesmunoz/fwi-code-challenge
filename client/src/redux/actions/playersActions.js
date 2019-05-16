@@ -45,7 +45,7 @@ export function savePlayer(player) {
       return axios
         .post(`${apiUrl}`, player)
         .then(savedPlayer => {
-          dispatch(createPlayerSuccess(savedPlayer));
+          dispatch(createPlayerSuccess(savedPlayer.data));
         })
         .catch(error => {
           dispatch(apiCallError(error));
@@ -55,7 +55,7 @@ export function savePlayer(player) {
       return axios
         .put(`${apiUrl}/${player.id}`, player)
         .then(savedPlayer => {
-          dispatch(updatePlayerSuccess(savedPlayer));
+          dispatch(updatePlayerSuccess(savedPlayer.data));
         })
         .catch(error => {
           dispatch(apiCallError(error));

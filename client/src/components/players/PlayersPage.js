@@ -57,7 +57,6 @@ PlayersPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     loading: state.apiCallsInProgress > 0,
     players: state.players.length === 0 ? [] : state.players
