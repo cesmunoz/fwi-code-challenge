@@ -28,7 +28,7 @@ function PlayersPage({ ...props }) {
 
   return (
     <>
-      {redirectToAddPlayerPage && <Redirect to="/players" />}
+      {redirectToAddPlayerPage && <Redirect to="/player" />}
       <h2>Players</h2>
       {props.loading ? (
         <Spinner />
@@ -57,7 +57,6 @@ PlayersPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     loading: state.apiCallsInProgress > 0,
     players: state.players.length === 0 ? [] : state.players

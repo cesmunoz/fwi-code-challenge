@@ -15,9 +15,9 @@ const PlayersList = ({ players, onDeleteClick }) => (
     <tbody>
       {players.map(player => {
         return (
-          <tr key={player.id}>
+          <tr key={player._id}>
             <td>
-              <Link to={`players/${player.id}`}>
+              <Link to={`/players/${player._id}`}>
                 {player.firstname} {player.lastname}
               </Link>
             </td>

@@ -37,33 +37,31 @@ export function loadPlayers() {
   };
 }
 
-export function createPlayer(player) {
+export function savePlayer(player) {
   return function(dispatch, getState) {
     dispatch(beginApiCall());
-    return axios
-      .post(`${apiUrl}`, player)
-      .then(savedPlayer => {
-        dispatch(createPlayerSuccess(savedPlayer));
-      })
-      .catch(error => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
-  };
-}
 
-export function updatePlayer(player) {
-  return function(dispatch, getState) {
-    dispatch(beginApiCall());
-    return axios
-      .put(`${apiUrl}/${player.id}`, player)
-      .then(savedPlayer => {
-        dispatch(updatePlayerSuccess(savedPlayer));
-      })
-      .catch(error => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
+    if (!player._id) {
+      return axios
+        .post(`${apiUrl}`, player)
+        .then(savedPlayer => {
+          dispatch(createPlayerSuccess(savedPlayer));
+        })
+        .catch(error => {
+          dispatch(apiCallError(error));
+          throw error;
+        });
+    } else {
+      return axios
+        .put(`${apiUrl}/${player.id}`, player)
+        .then(savedPlayer => {
+          dispatch(updatePlayerSuccess(savedPlayer));
+        })
+        .catch(error => {
+          dispatch(apiCallError(error));
+          throw error;
+        });
+    }
   };
 }
 
