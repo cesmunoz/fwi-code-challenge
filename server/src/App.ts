@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import "reflect-metadata";
 import * as bodyParser from "body-parser";
 import { Container } from "inversify";
@@ -22,6 +23,19 @@ const server = new InversifyExpressServer(container);
 server.setConfig(app => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
+
+  app.use(function(req: Request, res: Response, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
+
+  app.get("/", (req: Request, res: Response) =>
+    res.send(200).send("Welcome to FWI Code Challenge API")
+  );
 });
 
 const app = server.build();
