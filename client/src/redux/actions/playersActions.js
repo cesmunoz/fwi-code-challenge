@@ -6,24 +6,25 @@ import { EROFS } from "constants";
 
 const apiUrl = "http://localhost:8000/players";
 
-export function loadPlayesSuccess(players) {
-  return { type: types.LOAD_PLAYERS_SUCCESS, players };
-}
+export const loadPlayesSuccess = players => ({
+  type: types.LOAD_PLAYERS_SUCCESS,
+  players
+});
+export const createPlayerSuccess = player => ({
+  type: types.CREATE_PLAYER_SUCCESS,
+  player
+});
+export const updatePlayerSuccess = player => ({
+  type: types.UPDATE_PLAYER_SUCCESS,
+  player
+});
+export const deletePlayerSuccess = player => ({
+  type: types.DELETE_PLAYER_SUCCESS,
+  player
+});
 
-export function createPlayerSuccess(player) {
-  return { type: types.CREATE_PLAYER_SUCCESS, player };
-}
-
-export function updatePlayerSuccess(player) {
-  return { type: types.UPDATE_PLAYER_SUCCESS, player };
-}
-
-export function deletePlayerSuccess(player) {
-  return { type: types.DELETE_PLAYER_SUCCESS, player };
-}
-
-export function loadPlayers() {
-  return function(dispatch) {
+export const loadPlayers = () => {
+  return dispatch => {
     dispatch(beginApiCall());
     return axios
       .get(`${apiUrl}`)
@@ -35,10 +36,10 @@ export function loadPlayers() {
         throw error;
       });
   };
-}
+};
 
-export function savePlayer(player) {
-  return function(dispatch, getState) {
+export const savePlayer = player => {
+  return (dispatch, getState) => {
     dispatch(beginApiCall());
     if (!player._id) {
       return axios
@@ -62,10 +63,10 @@ export function savePlayer(player) {
         });
     }
   };
-}
+};
 
-export function deletePlayer(player) {
-  return function(dispatch) {
+export const deletePlayer = player => {
+  return dispatch => {
     dispatch(beginApiCall);
     return axios
       .delete(`${apiUrl}/${player._id}`)
@@ -76,4 +77,4 @@ export function deletePlayer(player) {
         dispatch(apiCallError(error));
       });
   };
-}
+};
