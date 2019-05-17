@@ -74,6 +74,9 @@ docker pull mongo
 docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
 ```
 
+Create a database with the name **fwidb**
+and a collection with the name **players**
+
 **Yarn (Optional)**  
 https://yarnpkg.com/en/
 
