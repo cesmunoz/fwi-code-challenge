@@ -17,11 +17,9 @@ const PlayersList = ({ players, onDeleteClick }) => (
         return (
           <tr key={player._id}>
             <td>
-              <Router>
-                <Link to={`/player/${player._id}`}>
-                  {player.firstname} {player.lastname}
-                </Link>
-              </Router>
+              <Link to={`/player/${player._id}`}>
+                {player.firstname} {player.lastname}
+              </Link>
             </td>
             <td>{player.winnings}</td>
             <td>{player.country}</td>

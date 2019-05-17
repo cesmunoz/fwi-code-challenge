@@ -6,6 +6,7 @@ import {
   queryByTestId,
   getByTestId
 } from "react-testing-library";
+import { BrowserRouter as Router } from "react-router-dom";
 import PlayerForm from "../../../components/players/PlayersList";
 
 afterEach(cleanup);
@@ -17,7 +18,11 @@ function renderPlayerForm(args) {
   };
 
   const props = { ...defaultProps, ...args };
-  return render(<PlayerForm {...props} />);
+  return render(
+    <Router>
+      <PlayerForm {...props} />
+    </Router>
+  );
 }
 
 it("should render without elements", () => {
