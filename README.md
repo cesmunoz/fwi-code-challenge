@@ -67,6 +67,12 @@ If you don't want to install mongo you can install Docker and create a container
 
 DOCKER  
 [https://www.docker.com/](https://www.docker.com/)
+IMPORTANT: You need to run the following command on the terminal
+
+```
+docker pull mongo
+docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
+```
 
 **Yarn (Optional)**  
 https://yarnpkg.com/en/
