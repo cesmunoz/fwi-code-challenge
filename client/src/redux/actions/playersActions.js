@@ -70,7 +70,7 @@ export function deletePlayer(player) {
     return axios
       .delete(`${apiUrl}/${player._id}`)
       .then(success => {
-        // Do something
+        dispatch(deletePlayerSuccess(player));
       })
       .catch(error => {
         dispatch(apiCallError(error));

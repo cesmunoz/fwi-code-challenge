@@ -27,7 +27,6 @@ class DataAccess {
       connectionString = await server.getConnectionString();
     }
 
-    console.log(`${connectionString}`);
     this.instance = await mongoose.connect(`${connectionString}`, {
       useNewUrlParser: true
     });

@@ -16,14 +16,21 @@ function PlayersPage({ ...props }) {
 
     if (players.length === 0) {
       actions.loadPlayers().catch(error => {
-        alert(`Loading players fails: ${error}`);
+        toast.error(`Loading players fails: ${error}`, { autoClose: false });
       });
     }
-  }, []);
+  }, [props.players]);
 
-  function handleDeleteCourse(event) {
-    toast.success("Player deleted");
-    event.preventDefault();
+  function handleDeleteCourse(player) {
+    const { actions } = props;
+    actions
+      .deletePlayer(player)
+      .then(() => {
+        toast.success("Player deleted");
+      })
+      .catch(error => {
+        toast.error(`Delete failed. ${error.mesage}`, { autoClose: false });
+      });
   }
 
   return (
@@ -66,7 +73,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      loadPlayers: bindActionCreators(playerActions.loadPlayers, dispatch)
+      loadPlayers: bindActionCreators(playerActions.loadPlayers, dispatch),
+      deletePlayer: bindActionCreators(playerActions.deletePlayer, dispatch)
     }
   };
 }
