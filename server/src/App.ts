@@ -8,12 +8,12 @@ import TYPES from "./constants/Types";
 import DataAccess = require("./util/DataAccess");
 import "./controllers/PlayerController";
 import cors from "cors";
+import dotenv from "dotenv";
 import PlayerRepository = require("./repository/PlayerRepository");
-import { RepositoryBase } from "./repository/base/RepositoryBase";
-import Player, { IPlayerModel } from "./models/Player";
-import { IRepository } from "./repository/interfaces/IRepository";
 
-const port = process.env.PORT || 8000;
+dotenv.config();
+
+const port = process.env.PORT || 8400;
 
 const container = new Container();
 container.bind<DataAccess>(TYPES.DataAccess).to(DataAccess);
@@ -35,4 +35,4 @@ server.setConfig(app => {
 const app = server.build();
 app.listen(port, () => console.log(`Server listening on port ${port}`));
 
-exports = module.exports = app;
+export default app;

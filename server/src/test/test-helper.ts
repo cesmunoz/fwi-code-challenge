@@ -1,17 +1,17 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
-import * as db from "../util/database";
+import DataAccess = require("../util/DataAccess");
 
 const server = new MongoMemoryServer();
 
 export const createDB = async () => {
   try {
     const url = await server.getConnectionString();
-    db.connect(url);
+    DataAccess.connect(url);
   } catch (err) {
     throw err;
   }
 };
 
 export const destroyDB = async () => {
-  db.disconnect();
+  await DataAccess.disconnect();
 };

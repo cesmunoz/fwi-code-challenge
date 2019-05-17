@@ -24,6 +24,30 @@
       "program": "${workspaceFolder}/server/src/App.ts",
       "preLaunchTask": "tsc: build - server/tsconfig.json",
       "outFiles": ["${workspaceFolder}/server/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Jest Tests",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/.bin/jest",
+        "--runInBand",
+        "--config",
+        "${workspaceRoot}/server/jest.config.js"
+      ],
+      "windows": {
+        "args": [
+          "--inspect-brk",
+          "${workspaceRoot}/node_modules/jest/bin/jest.js",
+          "--runInBand",
+          "--config",
+          "${workspaceRoot}/server/jest.config.js"
+        ]
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

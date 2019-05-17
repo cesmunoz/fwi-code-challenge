@@ -27,7 +27,15 @@ export class PlayerController {
   }
 
   @httpPost("/")
-  public async post(req: Request): Promise<IPlayerModel> {
+  public async post(req: Request, res: Response): Promise<void> {
+    const body = req.body;
+    if (!body.firstname || !body.lastname || !body.hometown || !body.country) {
+      res.status(400).json({
+        status: 400,
+        message: "Missing some fields"
+      });
+    }
+
     const model = new Player({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -35,18 +43,8 @@ export class PlayerController {
       country: req.body.country
     });
 
-    return this.service.post(model);
-    // const result = await this.service.post(req);
-
-    // res.set(
-    //   "Location",
-    //   `${req.protocol}://${req.get("host")}/players/${result.id}`
-    // );
-
-    // return res.status(201).json({
-    //   id: result.id,
-    //   message: "Player created successfully"
-    // });
+    const result = await this.service.post(model);
+    res.status(201).json(result);
   }
 
   @httpPut("/:id")
@@ -59,28 +57,11 @@ export class PlayerController {
       country: req.body.country
     });
     return this.service.put(req.params.id, model);
-    // const result = await this.service.put(req);
-
-    // if (!result) {
-    //   throw new HttpException(404, "Player not found");
-    // }
-
-    // res.status(200).json({
-    //   id: req.params.id,
-    //   message: "Player updated successfully"
-    // });
   }
 
   @httpDelete("/:id")
-  public async deleteById(req: Request): Promise<IPlayerModel> {
-    return this.service.deleteById(req.params.id);
-    // const result = await this.service.deleteById(req.params.id);
-    // if (!result) {
-    //   throw new HttpException(404, "Player not found");
-    // }
-    // return res.status(200).json({
-    //   id: req.params.id,
-    //   message: "Player delete successfully"
-    // });
+  public async deleteById(req: Request, res: Response): Promise<void> {
+    this.service.deleteById(req.params.id);
+    res.status(204);
   }
 }

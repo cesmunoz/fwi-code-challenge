@@ -11,7 +11,7 @@
     "outDir": "./dist",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "types": ["reflect-metadata"]
+    "types": ["jest", "reflect-metadata"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
