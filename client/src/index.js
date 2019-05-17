@@ -2,7 +2,6 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import configureStore from "./redux/configureStore";
@@ -12,9 +11,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <ReduxProvider store={store}>
-    <Router>
-      <App />
-    </Router>
+    <App />
   </ReduxProvider>,
   document.getElementById("root")
 );

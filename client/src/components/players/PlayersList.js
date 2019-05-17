@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const PlayersList = ({ players, onDeleteClick }) => (
   <table className="table">
@@ -12,14 +12,16 @@ const PlayersList = ({ players, onDeleteClick }) => (
         <th />
       </tr>
     </thead>
-    <tbody>
+    <tbody data-testid="playersElements">
       {players.map(player => {
         return (
           <tr key={player._id}>
             <td>
-              <Link to={`/player/${player._id}`}>
-                {player.firstname} {player.lastname}
-              </Link>
+              <Router>
+                <Link to={`/player/${player._id}`}>
+                  {player.firstname} {player.lastname}
+                </Link>
+              </Router>
             </td>
             <td>{player.winnings}</td>
             <td>{player.country}</td>
