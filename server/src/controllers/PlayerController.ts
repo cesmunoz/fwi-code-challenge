@@ -29,7 +29,13 @@ export class PlayerController {
   @httpPost("/")
   public async post(req: Request, res: Response): Promise<void> {
     const body = req.body;
-    if (!body.firstname || !body.lastname || !body.hometown || !body.country) {
+    if (
+      !body.firstname ||
+      !body.lastname ||
+      !body.hometown ||
+      !body.country ||
+      !body.winnings
+    ) {
       res.status(400).json({
         status: 400,
         message: "Missing some fields"
@@ -40,7 +46,8 @@ export class PlayerController {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       hometown: req.body.hometown,
-      country: req.body.country
+      country: req.body.country,
+      winnings: req.body.winnings
     });
 
     const result = await this.service.post(model);
@@ -54,7 +61,8 @@ export class PlayerController {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       hometown: req.body.hometown,
-      country: req.body.country
+      country: req.body.country,
+      winnings: req.body.winnings
     });
     return this.service.put(req.params.id, model);
   }

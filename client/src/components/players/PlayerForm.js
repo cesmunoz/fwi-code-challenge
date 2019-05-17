@@ -46,6 +46,13 @@ const PlayerForm = ({
         onChange={onChange}
         error={errors.country}
       />
+      <TextInput
+        name="winnings"
+        label="Winnings"
+        value={player.winnings}
+        onChange={onChange}
+        error={errors.winnings}
+      />
       <button type="submit" disabled={saving} className="btn btn-primary">
         {saving ? "Saving..." : "Save"}
       </button>

@@ -36,13 +36,14 @@ export function ManagePlayerPage({
   }
 
   function formIsValid() {
-    const { firstname, lastname, country, hometown } = player;
+    const { firstname, lastname, country, hometown, winnings } = player;
     const errors = {};
 
     if (!firstname) errors.firstname = "First name is required.";
     if (!lastname) errors.lastname = "Last name is required.";
     if (!country) errors.country = "Country is required";
     if (!hometown) errors.hometown = "Hometown is required.";
+    if (!winnings) errors.winnings = "Winnings is required.";
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -102,7 +103,8 @@ function mapStateToProps(state, ownProps) {
           firstname: "",
           lastname: "",
           hometown: "",
-          country: ""
+          country: "",
+          winnings: ""
         };
 
   return {

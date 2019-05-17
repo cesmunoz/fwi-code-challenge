@@ -8,6 +8,7 @@ export interface IPlayerModel extends mongoose.Document {
   lastname: string;
   hometown: string;
   country: string;
+  winnings: string;
 }
 
 const PlayerSchema = new Schema({
@@ -26,6 +27,10 @@ const PlayerSchema = new Schema({
   country: {
     type: String,
     required: "Enter a country"
+  },
+  winnings: {
+    type: String,
+    required: "Enter a winning amount"
   }
 });
 
