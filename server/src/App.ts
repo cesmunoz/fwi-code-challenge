@@ -13,7 +13,7 @@ import PlayerRepository = require("./repository/PlayerRepository");
 
 dotenv.config();
 
-const port = process.env.PORT || 8400;
+const port = process.env.PORT || 8000;
 
 const container = new Container();
 container.bind<DataAccess>(TYPES.DataAccess).to(DataAccess);

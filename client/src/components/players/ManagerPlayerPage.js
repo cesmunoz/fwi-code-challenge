@@ -25,7 +25,7 @@ export function ManagePlayerPage({
     } else {
       setPlayer({ ...props.player });
     }
-  }, [props.player]);
+  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -68,7 +68,7 @@ export function ManagePlayerPage({
       });
   }
 
-  return players.length === 0 ? (
+  return props.loading === 0 ? (
     <Spinner />
   ) : (
     <PlayeForm
