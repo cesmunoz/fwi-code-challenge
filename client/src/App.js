@@ -7,7 +7,6 @@ import AboutPage from "./components/about/AboutPage";
 import PlayersPage from "./components/players/PlayersPage";
 import ManagePlayerPage from "./components/players/ManagerPlayerPage";
 import { ToastContainer } from "react-toastify";
-import logo from "./logo.svg";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 

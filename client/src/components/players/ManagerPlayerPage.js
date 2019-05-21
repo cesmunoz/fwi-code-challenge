@@ -25,7 +25,7 @@ export function ManagePlayerPage({
     } else {
       setPlayer({ ...props.player });
     }
-  }, []);
+  }, [loadPlayers, players.length, props.player]);
 
   function handleChange(event) {
     const { name, value } = event.target;

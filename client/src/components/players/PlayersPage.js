@@ -19,7 +19,7 @@ function PlayersPage({ ...props }) {
         toast.error(`Loading players fails: ${error}`, { autoClose: false });
       });
     }
-  }, []);
+  }, [props]);
 
   function handleDeleteCourse(player) {
     const { actions } = props;
