@@ -3,24 +3,24 @@
     "firstname": "John",
     "lastname": "Smith",
     "hometown": "Gallifrey",
-    "country": "Gallifrey"
+    "winnings": "25.9"
   },
   {
     "firstname": "Sherlock",
     "lastname": "Holmes",
     "hometown": "London",
-    "country": "England"
+    "winnings": "19.9"
   },
   {
     "firstname": "Homer",
     "lastname": "Simpson",
     "hometown": "Springfield",
-    "country": "United States"
+    "winnings": "19.2"
   },
   {
     "firstname": "Eric",
     "lastname": "Cartman",
     "hometown": "South Park",
-    "country": "United States"
+    "winnings": "17.5"
   }
 ]

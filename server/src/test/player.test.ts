@@ -5,13 +5,24 @@ import app from "../App";
 import { Response } from "express";
 import DataAccess = require("../util/DataAccess");
 import { RepositoryBase } from "../repository/base/RepositoryBase";
+import Country from "../models/Country";
 
 describe("Players API", () => {
   beforeAll(async () => {
     await DataAccess.connect("test");
 
     // eslint:disable-next-line
-    const players = require("./mock/players.json");
+    const countries = require("../util/mock/countries.json");
+    // eslint:disable-next-line
+    const players = require("../util/mock/players.json");
+
+    await Country.collection.insertMany(countries);
+
+    players.forEach(element => {
+      var country = countries[Math.floor(Math.random() * countries.length)];
+      element.country = country._id;
+    });
+
     await Player.collection.insertMany(players);
   });
 
@@ -29,16 +40,20 @@ describe("Players API", () => {
   });
 
   it("Post Player successfully", async done => {
+    const countries: any = await request(app).get("/countries");
+
     const model = new Player({
       firstname: "Test FistName",
       lastname: "Test LastName",
       hometown: "Test Hometown",
-      country: "Test Country"
+      winnings: "11.11",
+      country: countries.body[0]._id
     });
 
     const response: any = await request(app)
       .post("/players")
       .send(model);
+
     const player: any = await request(app).get(`/players/${response.body.id}`);
 
     expect(response.status).toBe(201);
@@ -52,11 +67,14 @@ describe("Players API", () => {
   });
 
   it("Put Player successfully", async done => {
+    const countries: any = await request(app).get("/countries");
+
     const model = new Player({
       firstname: "Test FistName",
       lastname: "Test LastName",
       hometown: "Test Hometown",
-      country: "Test Country"
+      winnings: "11.11",
+      country: countries.body[0]._id
     });
 
     const responseCreate: any = await request(app)
@@ -68,7 +86,8 @@ describe("Players API", () => {
       firstname: "FistName",
       lastname: "LastName",
       hometown: "Hometown",
-      country: "Country"
+      winnings: "22.22",
+      country: countries.body[1]._id
     });
 
     const response: any = await request(app)

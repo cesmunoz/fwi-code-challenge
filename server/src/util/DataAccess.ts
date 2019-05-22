@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import dotenv from "dotenv";
+import { DataHelper } from "./DataHelper";
 
 dotenv.config();
 
@@ -20,6 +21,10 @@ class DataAccess {
     this.connection = mongoose.connection;
     this.connection.once("open", () => {
       console.log("Connect to mongo database");
+
+      if (process.env.NODE_ENV !== "test") {
+        DataHelper.checkData(DataAccess.connection);
+      }
     });
 
     if (process.env.NODE_ENV === "test") {
