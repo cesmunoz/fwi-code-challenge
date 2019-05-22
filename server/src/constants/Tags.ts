@@ -1,5 +1,6 @@
 const TAGS = {
-  PlayerController: "PlayerController"
+  PlayerController: "PlayerController",
+  CountryController: "CountryController"
 };
 
 export default TAGS;

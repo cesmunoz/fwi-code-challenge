@@ -12,8 +12,11 @@ export class RepositoryBase<T extends mongoose.Document>
     this.model = schemaModel;
   }
 
-  async getAll(): Promise<T[]> {
-    return await this.model.find();
+  async getAll(sort: any = {}, find: any = {}): Promise<T[]> {
+    return await this.model
+      .find(find)
+      .sort(sort)
+      .collation({ locale: "en_US", numericOrdering: true });
   }
 
   async get(_id: string): Promise<T> {

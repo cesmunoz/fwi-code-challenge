@@ -24,13 +24,13 @@ const PlayerSchema = new Schema({
     type: String,
     required: "Enter a hometown"
   },
-  country: {
-    type: String,
-    required: "Enter a country"
-  },
   winnings: {
     type: String,
     required: "Enter a winning amount"
+  },
+  country: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Country"
   }
 });
 

@@ -12,7 +12,9 @@ export class PlayerService {
   ) {}
 
   public async get() {
-    return this.repository.getAll();
+    return this.repository.getAll({
+      winnings: "desc"
+    });
   }
 
   public async getById(id: number) {
