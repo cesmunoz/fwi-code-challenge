@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { loadPlayers, savePlayer } from "../../redux/actions/playersActions";
+import { loadCountries } from "../../redux/actions/countriesActions";
 import PropTypes from "prop-types";
 import PlayeForm from "./PlayerForm";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 
 export function ManagePlayerPage({
+  countries,
+  loadCountries,
   players,
   loadPlayers,
   savePlayer,
@@ -25,7 +28,19 @@ export function ManagePlayerPage({
     } else {
       setPlayer({ ...props.player });
     }
-  }, [loadPlayers, players.length, props.player]);
+
+    if (countries.length === 0) {
+      loadCountries().catch(error => {
+        alert(`Loading countries failed ${error}`);
+      });
+    }
+  }, [
+    countries.length,
+    loadCountries,
+    loadPlayers,
+    players.length,
+    props.player
+  ]);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -44,6 +59,8 @@ export function ManagePlayerPage({
     if (!country) errors.country = "Country is required";
     if (!hometown) errors.hometown = "Hometown is required.";
     if (!winnings) errors.winnings = "Winnings is required.";
+    if (winnings && !winnings.match("\\d+((\\.|,)\\d+)?"))
+      errors.winnings = "Winning does not match. Allows only numbers and dots.";
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -72,6 +89,7 @@ export function ManagePlayerPage({
     <Spinner />
   ) : (
     <PlayeForm
+      countries={countries}
       player={player}
       errors={errors}
       onChange={handleChange}
@@ -85,6 +103,8 @@ ManagePlayerPage.propTypes = {
   player: PropTypes.object.isRequired,
   players: PropTypes.array.isRequired,
   loadPlayers: PropTypes.func.isRequired,
+  countries: PropTypes.array.isRequired,
+  loadCountries: PropTypes.func.isRequired,
   savePlayer: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
@@ -109,12 +129,14 @@ function mapStateToProps(state, ownProps) {
 
   return {
     player,
-    players: state.players
+    players: state.players,
+    countries: state.countries
   };
 }
 
 const mapDispatchToProps = {
   loadPlayers,
+  loadCountries,
   savePlayer
 };
 

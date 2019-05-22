@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextInput from "../common/TextInput";
+import SelectInput from "../common/SelectInput";
 
 const PlayerForm = ({
   player,
+  countries,
   onSave,
   onChange,
   saving = false,
@@ -38,10 +40,15 @@ const PlayerForm = ({
         onChange={onChange}
         error={errors.hometown}
       />
-      <TextInput
+      <SelectInput
         name="country"
         label="Country"
-        value={player.country}
+        value={player.country || ""}
+        defaultOption="Select Country"
+        options={countries.map(country => ({
+          value: country._id,
+          text: country.description
+        }))}
         onChange={onChange}
         error={errors.country}
       />
@@ -60,6 +67,7 @@ const PlayerForm = ({
 };
 
 PlayerForm.propTypes = {
+  countries: PropTypes.array.isRequired,
   player: PropTypes.object.isRequired,
   errors: PropTypes.object,
   onSave: PropTypes.func.isRequired,

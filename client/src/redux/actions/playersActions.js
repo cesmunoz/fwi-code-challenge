@@ -1,8 +1,9 @@
 import * as types from "./actionTypes";
 import { beginApiCall, apiCallError } from "./apiStatusAction";
 import axios from "axios";
+import config from "../../config";
 
-const apiUrl = "http://localhost:8000/players";
+const apiUrl = `${config.API_BASE_URL}/players`;
 
 export const loadPlayesSuccess = players => ({
   type: types.LOAD_PLAYERS_SUCCESS,
