@@ -13,6 +13,6 @@
     "esModuleInterop": true,
     "types": ["jest", "reflect-metadata"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.json"],
   "exclude": ["node_modules"]
 }
