@@ -74,8 +74,10 @@ docker pull mongo
 docker run -d -p 27017-27019:27017-27019 --name mongodb mongo
 ```
 
-Create a database with the name **fwidb**
-and a collection with the name **players**
+### **IMPORTANT**
+
+Create a database with the name **fwidb**  
+and a collection with the name **\_init**
 
 **Yarn (Optional)**  
 https://yarnpkg.com/en/
@@ -105,7 +107,14 @@ Yarn
 yarn
 ```
 
-## Running application
+# Running applications
+
+Run all the application
+
+```
+NPM: npm start
+YARN: yarn start
+```
 
 In the root directory:
 
@@ -123,7 +132,19 @@ NPM: npm run start:client
 YARN: yarn start:client
 ```
 
-# Documentation
+# URLs
+
+Client
+
+```
+http://localhost:3000/
+```
+
+Server
+
+```
+http://localhost:8000/
+```
 
 # Testing
 
