@@ -1,36 +1,40 @@
 import request from "supertest";
-import { createDB, destroyDB } from "./test-helper";
-import Player, { IPlayerModel } from "../models/Player";
+import { destroyDB } from "./test-helper";
+import Player from "../models/Player";
 import app from "../App";
-import { Response } from "express";
 import DataAccess = require("../util/DataAccess");
-import { RepositoryBase } from "../repository/base/RepositoryBase";
 import Country from "../models/Country";
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 describe("Players API", () => {
-  beforeAll(async () => {
-    await DataAccess.connect("test");
+  beforeAll(
+    async (): Promise<void> => {
+      await DataAccess.connect("test");
 
-    // eslint:disable-next-line
-    const countries = require("../util/mock/countries.json");
-    // eslint:disable-next-line
-    const players = require("../util/mock/players.json");
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const countries = require("../util/mock/countries.json");
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const players = require("../util/mock/players.json");
 
-    await Country.collection.insertMany(countries);
+      await Country.collection.insertMany(countries);
 
-    players.forEach(element => {
-      var country = countries[Math.floor(Math.random() * countries.length)];
-      element.country = country._id;
-    });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      players.forEach((element: { country: any }): void => {
+        var country = countries[Math.floor(Math.random() * countries.length)];
+        element.country = country._id;
+      });
 
-    await Player.collection.insertMany(players);
-  });
+      await Player.collection.insertMany(players);
+    }
+  );
 
-  afterAll(async () => {
-    await destroyDB();
-  });
+  afterAll(
+    async (): Promise<void> => {
+      await destroyDB();
+    }
+  );
 
-  it("Get players successfully", async done => {
+  it("Get players successfully", async (done): Promise<void> => {
     const response = await request(app).get("/players");
 
     expect(response.status).toBe(200);
@@ -39,7 +43,8 @@ describe("Players API", () => {
     done();
   });
 
-  it("Post Player successfully", async done => {
+  it("Post Player successfully", async (done): Promise<void> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const countries: any = await request(app).get("/countries");
 
     const model = new Player({
@@ -50,10 +55,12 @@ describe("Players API", () => {
       country: countries.body[0]._id
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response: any = await request(app)
       .post("/players")
       .send(model);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const player: any = await request(app).get(`/players/${response.body.id}`);
 
     expect(response.status).toBe(201);
@@ -66,7 +73,8 @@ describe("Players API", () => {
     done();
   });
 
-  it("Put Player successfully", async done => {
+  it("Put Player successfully", async (done): Promise<void> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const countries: any = await request(app).get("/countries");
 
     const model = new Player({
@@ -77,6 +85,7 @@ describe("Players API", () => {
       country: countries.body[0]._id
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responseCreate: any = await request(app)
       .post("/players")
       .send(model);
@@ -90,10 +99,12 @@ describe("Players API", () => {
       country: countries.body[1]._id
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response: any = await request(app)
       .put(`/players/${updateModel._id}`)
       .send(updateModel);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const player: any = await request(app).get(`/players/${response.body._id}`);
 
     expect(response.status).toBe(200);
@@ -106,14 +117,19 @@ describe("Players API", () => {
     done();
   });
 
-  it("Delete Player successfully", async done => {
+  it.only("Delete Player successfully", async (done): Promise<void> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const players: any = await request(app).get(`/players`);
 
+    console.log("PLAYERS", players);
+
     const [player] = players.body;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responseDelete: any = await request(app).delete(
       `/players/${player._id}`
     );
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responseAll: any = await request(app).get(`/players`);
 
     expect(responseDelete.status).toBe(204);

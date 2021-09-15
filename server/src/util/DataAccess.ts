@@ -10,16 +10,18 @@ const connectionString =
 const databaseName = process.env.DB_NAME || "fwidb";
 
 class DataAccess {
-  static instance: any;
-  static connection: mongoose.Connection;
+  public static instance: any;
+  public static connection: mongoose.Connection;
 
-  static async connect(connectionString: string): Promise<mongoose.Connection> {
+  public static async connect(
+    connectionString: string
+  ): Promise<mongoose.Connection> {
     if (this.instance) {
       return this.instance;
     }
 
     this.connection = mongoose.connection;
-    this.connection.once("open", () => {
+    this.connection.once("open", (): void => {
       console.log("Connect to mongo database");
 
       if (process.env.NODE_ENV !== "test") {
@@ -28,17 +30,18 @@ class DataAccess {
     });
 
     if (process.env.NODE_ENV === "test") {
-      const server = new MongoMemoryServer();
-      connectionString = await server.getConnectionString();
+      const server = await MongoMemoryServer.create();
+      connectionString = await server.getUri();
     }
 
+    // this.instance = await mongoose.connect(`${connectionString}`, {
     this.instance = await mongoose.connect(`${connectionString}`, {
       useNewUrlParser: true
     });
     return this.instance;
   }
 
-  static async disconnect() {
+  public static async disconnect(): Promise<void> {
     await this.connection.close();
   }
 }

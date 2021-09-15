@@ -3,7 +3,7 @@ import DataAccess = require("../util/DataAccess");
 
 const Connection = DataAccess.connection;
 
-export interface IPlayerModel extends mongoose.Document {
+export interface PlayerModel extends mongoose.Document {
   firstname: string;
   lastname: string;
   hometown: string;
@@ -34,4 +34,4 @@ const PlayerSchema = new Schema({
   }
 });
 
-export default Connection.model<IPlayerModel>("Player", PlayerSchema);
+export default Connection.model<PlayerModel>("Player", PlayerSchema);

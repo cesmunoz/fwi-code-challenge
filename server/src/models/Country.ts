@@ -3,7 +3,7 @@ import DataAccess = require("../util/DataAccess");
 
 const Connection = DataAccess.connection;
 
-export interface ICountryModel extends mongoose.Document {
+export interface CountryModel extends mongoose.Document {
   description: string;
   abbreviation: string;
 }
@@ -19,4 +19,4 @@ const CountrySchema = new Schema({
   }
 });
 
-export default Connection.model<ICountryModel>("Country", CountrySchema);
+export default Connection.model<CountryModel>("Country", CountrySchema);
