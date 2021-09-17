@@ -1,16 +1,12 @@
 import request from "supertest";
-import { destroyDB } from "./test-helper";
 import Player from "../models/Player";
 import app from "../App";
-import DataAccess = require("../util/DataAccess");
+import { destroyDB } from "./test-helper";
 import Country from "../models/Country";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-describe("Players API", () => {
+describe("Players API", (): void => {
   beforeAll(
     async (): Promise<void> => {
-      await DataAccess.connect("test");
-
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const countries = require("../util/mock/countries.json");
       // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -117,11 +113,9 @@ describe("Players API", () => {
     done();
   });
 
-  it.only("Delete Player successfully", async (done): Promise<void> => {
+  it("Delete Player successfully", async (done): Promise<void> => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const players: any = await request(app).get(`/players`);
-
-    console.log("PLAYERS", players);
 
     const [player] = players.body;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

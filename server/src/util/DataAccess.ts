@@ -13,9 +13,7 @@ class DataAccess {
   public static instance: any;
   public static connection: mongoose.Connection;
 
-  public static async connect(
-    connectionString: string
-  ): Promise<mongoose.Connection> {
+  public static async connect(): Promise<mongoose.Connection> {
     if (this.instance) {
       return this.instance;
     }
@@ -29,13 +27,17 @@ class DataAccess {
       }
     });
 
+    let connectionDBString = `${connectionString}/${databaseName}`;
     if (process.env.NODE_ENV === "test") {
-      const server = await MongoMemoryServer.create();
-      connectionString = await server.getUri();
+      const server = await MongoMemoryServer.create({
+        instance: {
+          port: 50862
+        }
+      });
+      connectionDBString = await server.getUri();
     }
 
-    // this.instance = await mongoose.connect(`${connectionString}`, {
-    this.instance = await mongoose.connect(`${connectionString}`, {
+    this.instance = await mongoose.connect(`${connectionDBString}`, {
       useNewUrlParser: true
     });
     return this.instance;
@@ -46,5 +48,5 @@ class DataAccess {
   }
 }
 
-DataAccess.connect(`${connectionString}/${databaseName}`);
+DataAccess.connect();
 export = DataAccess;

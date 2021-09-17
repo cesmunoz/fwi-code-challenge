@@ -27,10 +27,12 @@ export class RepositoryBase<T extends Document> implements Repository<T> {
     return await this.model.create(item);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async update(_id: any, item: T): Promise<T> {
-    const filter = { _id };
-    return await this.model.findOneAndUpdate(filter, item, { new: true });
+  public async update(_id: string, item: T): Promise<T> {
+    const filter = { _id: Types.ObjectId(_id) };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await this.model.findByIdAndUpdate(filter, item as any, {
+      new: true
+    });
   }
 
   public async delete(_id: string): Promise<T> {

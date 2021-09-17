@@ -1,11 +1,8 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
 import DataAccess = require("../util/DataAccess");
 
 export const createDB = async (): Promise<void> => {
   try {
-    const server = await MongoMemoryServer.create();
-    const url = await server.getUri();
-    DataAccess.connect(url);
+    DataAccess.connect();
   } catch (err) {
     throw err;
   }
