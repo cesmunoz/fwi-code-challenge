@@ -1,38 +1,39 @@
-import { Request, Response } from "express";
 import { injectable } from "inversify";
 import { inject } from "inversify";
-import Player, { IPlayerModel } from "../models/Player";
+import Player, { PlayerModel } from "../models/Player";
 import TYPES from "../constants/Types";
 import PlayerRepository = require("../repository/PlayerRepository");
 
 @injectable()
 export class PlayerService {
-  constructor(
-    @inject(TYPES.PlayerRepository) private repository: PlayerRepository
-  ) {}
+  private repository: PlayerRepository;
 
-  public async get() {
+  public constructor(
+    @inject(TYPES.PlayerRepository) repository: PlayerRepository
+  ) {
+    this.repository = repository;
+  }
+
+  public async get(): Promise<PlayerModel[]> {
     return this.repository.getAll({
       winnings: "desc"
     });
   }
 
-  public async getById(id: number) {
-    return await Player.findById(id);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async getById(id: any): Promise<PlayerModel> {
+    return await this.repository.get(id);
   }
 
-  public async post(player: IPlayerModel) {
-    const result = await player.save();
-    return result;
+  public async post(player: PlayerModel): Promise<PlayerModel> {
+    return await this.repository.insert(player);
   }
 
-  public async put(id: string, player: IPlayerModel) {
-    return await Player.findOneAndUpdate({ _id: id }, player, {
-      new: true
-    });
+  public async put(id: string, player: PlayerModel): Promise<PlayerModel> {
+    return await this.repository.update(id, player);
   }
 
-  public async deleteById(id: string) {
-    return await Player.findByIdAndDelete({ _id: id });
+  public async deleteById(id: string): Promise<PlayerModel> {
+    return await this.repository.delete(id);
   }
 }

@@ -1,9 +1,8 @@
 import { RepositoryBase } from "./base/RepositoryBase";
-import Player, { IPlayerModel } from "../models/Player";
-import { injectable } from "inversify";
+import Player, { PlayerModel } from "../models/Player";
 
-class PlayerRepository extends RepositoryBase<IPlayerModel> {
-  constructor() {
+class PlayerRepository extends RepositoryBase<PlayerModel> {
+  public constructor() {
     super(Player);
   }
 }

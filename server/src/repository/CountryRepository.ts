@@ -1,9 +1,8 @@
 import { RepositoryBase } from "./base/RepositoryBase";
-import Country, { ICountryModel } from "../models/Country";
-import { injectable } from "inversify";
+import Country, { CountryModel } from "../models/Country";
 
-class CountryRepository extends RepositoryBase<ICountryModel> {
-  constructor() {
+class CountryRepository extends RepositoryBase<CountryModel> {
+  public constructor() {
     super(Country);
   }
 }

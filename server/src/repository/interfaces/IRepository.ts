@@ -1,9 +1,9 @@
 import * as mongoose from "mongoose";
 
-export interface IRepository<T> {
+export interface Repository<T> {
   getAll: () => Promise<T[]>;
   get: (id: string) => Promise<T>;
   insert: (item: T) => Promise<T>;
-  update: (_id: mongoose.Types.ObjectId, item: T) => Promise<T>;
+  update: (_id: string, item: T) => Promise<T>;
   delete: (_id: string) => Promise<T>;
 }

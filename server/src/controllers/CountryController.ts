@@ -1,23 +1,19 @@
-import {
-  controller,
-  httpGet,
-  httpPost,
-  httpPut,
-  httpDelete
-} from "inversify-express-utils";
+import { controller, httpGet } from "inversify-express-utils";
 import { inject } from "inversify";
-import { Request, Response } from "express";
 import { CountryService } from "../services/CountryServices";
-import { HttpException } from "../util/httpException";
 import TYPES from "../constants/Types";
-import Country, { ICountryModel } from "../models/Country";
+import { CountryModel } from "../models/Country";
 
 @controller("/countries")
 export class CountryController {
-  constructor(@inject(TYPES.CountryService) private service: CountryService) {}
+  private service: CountryService;
+
+  public constructor(@inject(TYPES.CountryService) service: CountryService) {
+    this.service = service;
+  }
 
   @httpGet("/")
-  public async get(req: Request, res: Response): Promise<ICountryModel[]> {
+  public async get(): Promise<CountryModel[]> {
     return this.service.get();
   }
 }

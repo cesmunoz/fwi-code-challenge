@@ -1,17 +1,20 @@
-import { Request, Response } from "express";
 import { injectable } from "inversify";
 import { inject } from "inversify";
-import Country, { ICountryModel } from "../models/Country";
 import TYPES from "../constants/Types";
+import { CountryModel } from "../models/Country";
 import CountryRepository = require("../repository/CountryRepository");
 
 @injectable()
 export class CountryService {
-  constructor(
-    @inject(TYPES.CountryRepository) private repository: CountryRepository
-  ) {}
+  private repository: CountryRepository;
 
-  public async get() {
+  public constructor(
+    @inject(TYPES.CountryRepository) repository: CountryRepository
+  ) {
+    this.repository = repository;
+  }
+
+  public async get(): Promise<CountryModel[]> {
     return this.repository.getAll({
       description: "asc"
     });

@@ -1,10 +1,9 @@
-import { Request, Response } from "express";
+import express, { Request, Response } from "express";
 import "reflect-metadata";
-import * as bodyParser from "body-parser";
 import { Container } from "inversify";
 import { PlayerService } from "./services/PlayerServices";
 import { CountryService } from "./services/CountryServices";
-import { InversifyExpressServer, interfaces } from "inversify-express-utils";
+import { InversifyExpressServer } from "inversify-express-utils";
 import TYPES from "./constants/Types";
 import DataAccess = require("./util/DataAccess");
 import "./controllers/PlayerController";
@@ -28,18 +27,21 @@ container
   .to(CountryRepository);
 
 const server = new InversifyExpressServer(container);
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 server.setConfig(app => {
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
 
   app.use(cors());
 
-  app.get("/", (req: Request, res: Response) =>
-    res.send(200).send("Welcome to FWI Code Challenge API")
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  app.get("/", (_req: Request, res: Response) =>
+    res.status(200).send("Welcome to FWI Code Challenge API")
   );
 });
 
 const app = server.build();
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+app.listen(port, (): void => console.log(`Server listening on port ${port}`));
 
 export default app;

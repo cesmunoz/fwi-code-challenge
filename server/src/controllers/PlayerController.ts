@@ -8,21 +8,24 @@ import {
 import { inject } from "inversify";
 import { Request, Response } from "express";
 import { PlayerService } from "../services/PlayerServices";
-import { HttpException } from "../util/httpException";
 import TYPES from "../constants/Types";
-import Player, { IPlayerModel } from "../models/Player";
+import Player, { PlayerModel } from "../models/Player";
 
 @controller("/players")
 export class PlayerController {
-  constructor(@inject(TYPES.PlayerService) private service: PlayerService) {}
+  private service: PlayerService;
+
+  public constructor(@inject(TYPES.PlayerService) service: PlayerService) {
+    this.service = service;
+  }
 
   @httpGet("/")
-  public async get(req: Request, res: Response): Promise<IPlayerModel[]> {
+  public async get(): Promise<PlayerModel[]> {
     return this.service.get();
   }
 
   @httpGet("/:id")
-  public async getById(req: Request): Promise<IPlayerModel> {
+  public async getById(req: Request): Promise<PlayerModel> {
     return this.service.getById(req.params.id);
   }
 
@@ -55,7 +58,7 @@ export class PlayerController {
   }
 
   @httpPut("/:id")
-  public async put(req: Request): Promise<IPlayerModel> {
+  public async put(req: Request): Promise<PlayerModel> {
     const model = new Player({
       _id: req.params.id,
       firstname: req.body.firstname,
